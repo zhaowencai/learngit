@@ -19,3 +19,7 @@
 - 场景二：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令**git reset HEAD <file>**，就回到了场景1，第二步按场景1操作
 
 8. 删除也是更改，可以git rm file然后git commit，或者git restore file从版本库恢复
+
+9. 添加远程库 **git remote add origin git@github.com:zhaowencai/learngit.git**，把本地库的所有内容推送到远程库上：**git push -u origin master**
+
+10. 
