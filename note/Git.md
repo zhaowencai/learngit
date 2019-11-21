@@ -22,4 +22,6 @@
 
 9. 添加远程库 **git remote add origin git@github.com:zhaowencai/learngit.git**，把本地库的所有内容推送到远程库上：**git push -u origin master**
 
-10. 
+10. 要克隆一个仓库，首先必须知道仓库的地址，然后使用**git clone**命令克隆
+
+11. 创建并切换到新的dev分支，可以使用**git switch -c dev**，直接切换到已有的master分支，可以使用：**git switch master**
