@@ -25,3 +25,11 @@
 10. 要克隆一个仓库，首先必须知道仓库的地址，然后使用**git clone**命令克隆
 
 11. 创建并切换到新的dev分支，可以使用**git switch -c dev**，直接切换到已有的master分支，可以使用：**git switch master**
+    
+12. Git鼓励大量使用分支：
+- 查看分支：**git branch**
+- 创建分支：**git branch <name>**
+- 切换分支：**git checkout <name>**或者**git switch <name>**
+- 创建+切换分支：**git checkout -b <name>**或者**git switch -c <name>**
+- 合并某分支到当前分支：**git merge <name>**
+- 删除分支：**git branch -d <name>**
