@@ -8,7 +8,7 @@
    
 4. JVM总是动态加载class，可以在运行期根据条件来控制加载class。
 
-5. 如何获取一个class的Class实例：
+5. 如何获取一个class的**Class**实例：
    - 方法一：直接通过一个class的静态变量class获取 **Class cls = String.class**;
    - 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取 **String s = "Hello"; Class cls = s.getClass();**
    - 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取 **Class cls = Class.forName("java.lang.String")**;
@@ -25,3 +25,7 @@
    - 通过Method实例可以调用某个对象的方法：**Object invoke(Object instance, Object... parameters)**；
    - 通过设置**setAccessible(true)**来访问非public方法；
    - 通过反射调用方法时，仍然遵循**多态**原则。
+
+8. **Constructor**对象封装了构造方法的所有信息；
+   - 通过Class实例的方法可以获取Constructor实例：getConstructor()，getConstructors()，getDeclaredConstructor()，getDeclaredConstructors()；
+   - 通过Constructor实例可以创建一个实例对象：newInstance(Object... parameters)； 通过设置setAccessible(true)来访问非public构造方法
