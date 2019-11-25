@@ -12,3 +12,9 @@
    - 方法一：直接通过一个class的静态变量class获取 **Class cls = String.class**;
    - 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取 **String s = "Hello"; Class cls = s.getClass();**
    - 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取 **Class cls = Class.forName("java.lang.String")**;
+
+6. Java的反射API提供的**Field**类封装了字段的所有信息：
+   - 通过Class实例的方法可以获取Field实例：**getField()**，**getFields()**，**getDeclaredField()**，**getDeclaredFields()**；
+   - 通过Field实例可以获取字段信息：**getName()**，**getType()**，**getModifiers()**；
+   - 通过Field实例可以读取或设置某个对象的字段，如果存在访问限制，要首先调用**setAccessible(true)**来访问非public字段。
+   - 通过反射读写字段是一种非常规方法，它会破坏对象的封装。
