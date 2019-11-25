@@ -18,3 +18,10 @@
    - 通过Field实例可以获取字段信息：**getName()**，**getType()**，**getModifiers()**；
    - 通过Field实例可以读取或设置某个对象的字段，如果存在访问限制，要首先调用**setAccessible(true)**来访问非public字段。
    - 通过反射读写字段是一种非常规方法，它会破坏对象的封装。
+
+7. Java的反射API提供的**Method**对象封装了方法的所有信息：
+   - 通过Class实例的方法可以获取Method实例：**getMethod()**，**getMethods()**，**getDeclaredMethod()**，**getDeclaredMethods()**；
+   - 通过Method实例可以获取方法信息：**getName()**，**getReturnType()**，**getParameterTypes()**，**getModifiers()**；
+   - 通过Method实例可以调用某个对象的方法：**Object invoke(Object instance, Object... parameters)**；
+   - 通过设置**setAccessible(true)**来访问非public方法；
+   - 通过反射调用方法时，仍然遵循**多态**原则。
