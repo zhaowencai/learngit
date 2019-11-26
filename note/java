@@ -29,3 +29,8 @@
 8. **Constructor**对象封装了构造方法的所有信息；
    - 通过Class实例的方法可以获取Constructor实例：getConstructor()，getConstructors()，getDeclaredConstructor()，getDeclaredConstructors()；
    - 通过Constructor实例可以创建一个实例对象：newInstance(Object... parameters)； 通过设置setAccessible(true)来访问非public构造方法
+
+9. 通过Class对象可以获取继承关系：
+   - **Class getSuperclass()**：获取父类类型；
+   - **Class[] getInterfaces()**：获取当前类实现的所有接口。
+   - 通过Class对象的**isAssignableFrom()**方法可以判断一个向上转型是否可以实现。
