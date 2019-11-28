@@ -1,0 +1,68 @@
+## java拾遗
+
+1. 反射：反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法。
+
+2. 这种通过Class实例获取class信息的方法称为反射（Reflection）。
+
+3. JVM为每个加载的class及interface创建了对应的Class实例来保存class及interface的所有信息；获取一个class对应的Class实例后，就可以获取该class的所有信息；
+   
+4. JVM总是动态加载class，可以在运行期根据条件来控制加载class。
+
+5. 如何获取一个class的**Class**实例：
+   - 方法一：直接通过一个class的静态变量class获取 **Class cls = String.class**;
+   - 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取 **String s = "Hello"; Class cls = s.getClass();**
+   - 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取 **Class cls = Class.forName("java.lang.String")**;
+
+6. Java的反射API提供的**Field**类封装了字段的所有信息：
+   - 通过Class实例的方法可以获取Field实例：**getField()**，**getFields()**，**getDeclaredField()**，**getDeclaredFields()**；
+   - 通过Field实例可以获取字段信息：**getName()**，**getType()**，**getModifiers()**；
+   - 通过Field实例可以读取或设置某个对象的字段，如果存在访问限制，要首先调用**setAccessible(true)**来访问非public字段。
+   - 通过反射读写字段是一种非常规方法，它会破坏对象的封装。
+
+7. Java的反射API提供的**Method**对象封装了方法的所有信息：
+   - 通过Class实例的方法可以获取Method实例：**getMethod()**，**getMethods()**，**getDeclaredMethod()**，**getDeclaredMethods()**；
+   - 通过Method实例可以获取方法信息：**getName()**，**getReturnType()**，**getParameterTypes()**，**getModifiers()**；
+   - 通过Method实例可以调用某个对象的方法：**Object invoke(Object instance, Object... parameters)**；
+   - 通过设置**setAccessible(true)**来访问非public方法；
+   - 通过反射调用方法时，仍然遵循**多态**原则。
+
+8. **Constructor**对象封装了构造方法的所有信息；
+   - 通过Class实例的方法可以获取Constructor实例：getConstructor()，getConstructors()，getDeclaredConstructor()，getDeclaredConstructors()；
+   - 通过Constructor实例可以创建一个实例对象：newInstance(Object... parameters)； 通过设置setAccessible(true)来访问非public构造方法
+
+9. 通过Class对象可以获取继承关系：
+   - **Class getSuperclass()**：获取父类类型；
+   - **Class[] getInterfaces()**：获取当前类实现的所有接口。
+   - 通过Class对象的**isAssignableFrom()**方法可以判断一个向上转型是否可以实现。
+
+10. JDK提供的动态创建接口对象的方式，就叫**动态代理**。动态代理实际上是JDK在运行期动态创建class字节码并加载的过程。在运行期动态创建一个interface实例的方法如下
+   - 定义一个InvocationHandler实例，它负责实现接口的方法调用；
+   - 通过Proxy.newProxyInstance()创建interface实例，它需要3个参数：
+    1. 使用的ClassLoader，通常就是接口类的ClassLoader；
+    2. 需要实现的接口数组，至少需要传入一个接口进去；
+    3. 用来处理接口方法调用的InvocationHandler实例。
+   - 将返回的Object强制转型为接口
+   - Java标准库提供了动态代理功能，允许在运行期动态创建一个接口的实例；
+   - 动态代理是通过Proxy创建代理对象，然后将接口方法“代理”给InvocationHandler完成的。
+
+一个简单的动态代理实现：
+    public class Singleton {
+        public static void main(String[] args) {
+            InvocationHandler handler = new InvocationHandler() {
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    System.out.println(method);
+                    if (method.getName().equals("morning")) {
+                        System.out.println("Good morning," + args[0]);
+                    }
+                    return null;
+                }
+            };
+
+            Hello hello = (Hello) Proxy.newProxyInstance(Hello.class.getClassLoader(), new Class[]{Hello.class}, handler);
+            hello.morning("Bob");
+        }
+    }
+
+    interface Hello {
+        void morning(String name);
+    }
